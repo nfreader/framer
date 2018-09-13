@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{% block title %}{% endblock %} - Flaskr</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <style>
+    body {
+      margin-top: 80px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container" id="navcontainer">
+    <a class="navbar-brand" href="#"> Flaskr </a>
+    <ul class="navbar-nav mr-auto">
+      {% if g.user %}
+        <li class="nav-item"><span class="navbar-text">{{ g.user['username'] }}</span></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('station.getStations') }}">Station List</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('crew.index') }}">Crew List</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.logout') }}">Log Out</a></li>
+      {% else %}
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.register') }}">Register</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.login') }}">Log In</a></li>
+      {% endif %}
+    </ul>
+    </div>
+  </nav>
+  <main role="main">
+    <div class="container position-relative" id="container">
+      {% for message in get_flashed_messages() %}
+        <div class="flash">{{ message }}</div>
+      {% endfor %}
+      {% block header %}{% endblock %}
+      {% block content %}{% endblock %}
+    </div>
+  </main>
+</body>
+</html>

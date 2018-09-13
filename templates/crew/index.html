@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Crew Listing{% endblock %}</h1>
+  <hr>
+{% endblock %}
+
+{% block content %}
+  <table class="table table-sm table-bordered">
+    <thead>
+      <tr>    
+        <th>ID</th>   
+        <th>Name</th>  
+        <th>Rank</th>  
+        <th>Assignment</th>
+      </tr>   
+    </thead>
+    <tbody>
+    {% for c in crew %}
+    <tr>
+      <td>{{c.id}}</td>
+      <td><a href="{{url_for('crew.single', crew_id=c['id'])}}">{{c.firstname}} {{c.lastname}}</a></td>
+      <td>{{c.rank}}</td>
+      <td>{{c.assignment_name}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

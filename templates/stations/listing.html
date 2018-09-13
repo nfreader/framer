@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Stations{% endblock %}</h1>
+  <hr>
+{% endblock %}
+
+{% block content %}
+  <table class="table table-sm table-bordered">
+    <thead>
+      <tr>    
+        <th>ID</th>   
+        <th>Name</th>  
+        <th>Crew</th>  
+      </tr>   
+    </thead>
+    <tbody>
+    {% for station in stations %}
+    <tr>
+      <td>{{station.id}}</td>
+      <td><a href="{{url_for('station.view', station_id=station['id'])}}">{{station.name}}</a></td>
+      <td>{{station.crew}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

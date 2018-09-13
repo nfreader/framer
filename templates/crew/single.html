@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}{{crew.firstname}} {{crew.lastname}} <small class="text-muted">{{crew.rank}}</small>{% endblock %}</h1>
+  <hr>
+{% endblock %}
+
+{% block content %}
+
+<h2>Current Assignment</h2>
+{% if not crew.assignment %}
+  <div class="alert alert-info">Not currently assigned to any station</div>
+{% else %}
+<h4>{{crew.assignment_name}}</h4>
+{% endif %}
+<hr>
+
+<div class="card">
+<h3 class="card-header">Assign to Station</h3>
+<div class="card-body">
+<form method="post" class="form" action="{{url_for('crew.assign',crew_id=crew['id'])}}">
+  <div class="form-group">
+    <label for="station">Select a Station</label>
+    <select name="station" id="station" class="form-control">
+      <option value="">None</option>
+      {% for s in stations %}
+        <option value="{{s.id}}" {% if crew.assignment == s.id %} selected="selected" {% endif %}>{{s.name}}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <button class="btn btn-primary">Assign</button>
+</form>
+</div>
+</div>
+
+{% endblock %}
